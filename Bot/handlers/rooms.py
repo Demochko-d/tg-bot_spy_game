@@ -65,7 +65,12 @@ async def process_room_tag(
     game: Game,
     bot: Bot,
 ):
-    room_tag = message.text.strip().upper()
+    try:
+        room_tag = message.text.strip().upper()
+    except:
+        await message.answer("Это не похоже на код.")
+        return
+
     room, join_status = game.add_player_to_room(room_tag, message.from_user)
 
     if join_status == game.JOIN_USER_ALREADY_IN_ROOM:

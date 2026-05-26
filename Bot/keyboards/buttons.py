@@ -10,6 +10,14 @@ DELETE_KEY_FOR_ROOM = "delete_room"
 START_GAME = "start_game"
 SETTINGS_FOR_GAME = "settings_game"
 LEAVE_ROOM_CALLBACK = "leave_room"
+LEAVE_GAME_CALLBACK = "leave_game"
+END_GAME = "end_game"
+NEXT_GAME = "next_game"
+SHOW_SETS = "show_sets"
+CHANGE_MODES = "change_modes"
+BACK_TO_ROOM_MENU = "back_to_room_menu"
+SET_CHARACTER_SET_PREFIX = "set_character_set:"
+SET_GAME_MODE_PREFIX = "set_game_mode:"
 
 create_room_button = InlineKeyboardButton(
     text="Создать комнату",
@@ -46,4 +54,28 @@ start_button = InlineKeyboardButton(
 settings_button = InlineKeyboardButton(
     text="Настройки комнаты",
     callback_data=SETTINGS_FOR_GAME,
+)
+admin_game_end = InlineKeyboardButton(
+    text="Завершить игру",
+    callback_data=DELETE_KEY_FOR_ROOM,
+)
+admin_next_game = InlineKeyboardButton(
+    text="Новая игра",
+    callback_data=START_GAME,
+)
+player_game_leave = InlineKeyboardButton(
+    text="Покинуть игру",
+    callback_data=LEAVE_ROOM_CALLBACK,
+)
+show_sets = InlineKeyboardButton(
+    text="Изменить набор персоонажей",
+    callback_data=SHOW_SETS
+)
+change_modes = InlineKeyboardButton(
+    text="Изменить режим",
+    callback_data=CHANGE_MODES
+)
+back_to_room_menu_button = InlineKeyboardButton(
+    text="Назад",
+    callback_data=BACK_TO_ROOM_MENU,
 )

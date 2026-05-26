@@ -30,6 +30,10 @@ class Room:
         self.key = gen_key(used_keys)
         self.character_set = game_config.default_character_set
         self.mode = game_config.default_game_mode
+        self.is_started = False
+        self.turn_numbers = {}
+        self.game_number = 0
+        self.game_message_ids = {}
 
     def new_player(self, player):
         """Добавляет игрока в комнату, если его там еще нет."""
@@ -48,3 +52,36 @@ class Room:
         ]
 
         return len(self.list_players) != players_count
+
+    def start_game(self):
+        """Запускает игру и случайно назначает каждому игроку номер хода."""
+        if self.is_started:
+            return self.turn_numbers
+
+        return self.restart_game()
+
+    def restart_game(self):
+        """Запускает новую партию и заново назначает номера хода."""
+        players = self.list_players.copy()
+        random.shuffle(players)
+
+        self.turn_numbers = {
+            player.id: turn_number
+            for turn_number, player in enumerate(players, start=1)
+        }
+        self.is_started = True
+        self.game_number += 1
+
+        return self.turn_numbers
+
+    def get_turn_number(self, player):
+        """Возвращает номер хода игрока в текущей игре."""
+        return self.turn_numbers.get(player.id)
+
+    def set_mode(self, mode):
+        """Меняет режим игры в комнате."""
+        self.mode = mode
+
+    def set_character_set(self, character_set):
+        """Меняет набор персонажей в комнате."""
+        self.character_set = character_set
